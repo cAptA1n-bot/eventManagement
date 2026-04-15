@@ -16,7 +16,7 @@ This is a backend system for Event Management System. The flow of the applicatio
  - firstName (string)
  - lastName (string)
  - email (string, unique)
- - role enum["user", "admin"]
+ - role enum["user", "auperAdmin"]
  - password (string, hashed)
  - createdAt (Date)
 
@@ -28,6 +28,7 @@ This is a backend system for Event Management System. The flow of the applicatio
  - venue (string)
  - capacity (Number)
  - status enum["active", "cancelled", "ended"]
+ - approvalStatus enum["pending", "approved", "rejected"]
  - admin (ObjectId) - ref(Users)
  - createdAt (Date)
 
@@ -37,3 +38,14 @@ This is a backend system for Event Management System. The flow of the applicatio
  - userId (ObjectId) ref(Users)
  - status enum["registered", "cancelled"]
  - createdAt (Date)
+
+## APIs
+
+ - POST - /users/signup
+ - POST - /users/login
+ - GET - /users/me
+ - POST - /events
+ - GET - /events
+ - POST - /evnets/:id/register
+ - PATCH - /events/:id/register
+ - 
