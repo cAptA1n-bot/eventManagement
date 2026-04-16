@@ -33,6 +33,7 @@ const eventSchema = new mongoose.Schema({
         max: 100000
     },
     status: {
+        type: String,
         enum:{
             values: ["pending", "active", "rejected", "cancelled", "ended"],
             message: '{VALUE} is not a valid status'
