@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import connectDB from "./config/database.js";
 import authRouter from "./routes/authRoutes.js";
 import cors from "cors";
+import eventRouter from "./routes/eventRoutes.js"
 dotenv.config();
 
 const app = express();
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/users", authRouter);
+app.use("/events", eventRouter);
 
 
 connectDB()

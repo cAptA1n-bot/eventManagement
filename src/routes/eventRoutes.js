@@ -4,4 +4,6 @@ import eventControllers from '../controllers/eventControllers.js';
 
 const eventRouter = express.Router();
 
-eventRouter.post("/event", authmiddleware, eventControllers.createEvent);
+eventRouter.post("/", authmiddleware, eventControllers.createEvent);
+
+export default eventRouter;

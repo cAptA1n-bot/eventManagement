@@ -1,4 +1,4 @@
-import eventServices from '../services/eventServices'
+import eventServices from '../services/eventServices.js'
 
 const createEvent = async(req, res) => {
     try{
@@ -6,7 +6,7 @@ const createEvent = async(req, res) => {
         if(!eventName || !description || !time || !venue || !capacity){
             return res.status(400).send("All fields are required");
         }
-        const admin = req.user;
+        const admin = req.user._id;
         const event = await eventServices.createEvent(eventName, description, time, venue, capacity, admin);
         res.status(200).json({"message": "Event created successfully", "data": event});
     }
