@@ -32,4 +32,9 @@ const getEvents = async (userId, filter) => {
     return result;
 }
 
-export default {createEvent, getEvents}
+const getMyEvents = async (userId) => {
+    const myEvents = await Event.find({admin: userId}).sort({createdAt: -1}).lean();
+    return myEvents;
+}
+
+export default {createEvent, getEvents, getMyEvents}

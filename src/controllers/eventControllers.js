@@ -31,4 +31,15 @@ const getEvents = async (req, res) => {
     }
 }
 
-export default {createEvent, getEvents};
+const getMyEvents = async (req, res) => {
+    try{
+        const userId = req.user._id;
+        const myEvents = await eventServices.getMyEvents(userId);
+        res.status(200).json({"data": myEvents});
+    }
+    catch(error){
+        res.status(400).json({"message": error.message});
+    }
+}
+
+export default {createEvent, getEvents, getMyEvents};

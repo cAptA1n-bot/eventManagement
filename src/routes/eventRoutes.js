@@ -6,5 +6,6 @@ const eventRouter = express.Router();
 
 eventRouter.post("/", authmiddleware, eventControllers.createEvent);
 eventRouter.get("/", authmiddleware, eventControllers.getEvents);
+eventRouter.get("/me", authmiddleware, eventControllers.getMyEvents);
 
 export default eventRouter;
