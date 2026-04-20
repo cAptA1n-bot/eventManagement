@@ -32,6 +32,10 @@ const eventSchema = new mongoose.Schema({
         min: 10,
         max: 100000
     },
+    currentGuest: {
+        type: Number,
+        default: 0
+    },
     status: {
         type: String,
         enum:{

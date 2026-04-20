@@ -1,7 +1,8 @@
 import express from 'express';
-import authMiddleware from '../middlewares/authmiddleware';
+import authMiddleware from '../middlewares/authmiddleware.js';
+import registrationControllers from '../controllers/registrationControllers.js';
 const registrationRouter = express.Router();
 
-registrationRouter.post('/', authMiddleware)
+registrationRouter.post('/:eventid', authMiddleware, registrationControllers.register);
 
 export default registrationRouter;

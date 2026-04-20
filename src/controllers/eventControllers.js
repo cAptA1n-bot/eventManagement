@@ -8,10 +8,10 @@ const createEvent = async(req, res) => {
         }
         const admin = req.user._id;
         const event = await eventServices.createEvent(eventName, description, time, venue, capacity, admin);
-        res.status(200).json({"message": "Event created successfully", "data": event});
+        res.status(200).json({message: "Event created successfully", "data": event});
     }
     catch(error){
-        res.status(400).json({"message": error.message})
+        res.status(400).json({message: error.message})
     }
 }
 
@@ -24,10 +24,10 @@ const getEvents = async (req, res) => {
             return res.status(400).json({'message': 'Invalid Status'});
         }
         const events = await eventServices.getEvents(userId, filter);
-        res.status(200).json({"data": events});
+        res.status(200).json({data: events});
     }
     catch(error){
-        res.status(400).json({"message": error.message});
+        res.status(400).json({message: error.message});
     }
 }
 
@@ -35,10 +35,10 @@ const getMyEvents = async (req, res) => {
     try{
         const userId = req.user._id;
         const myEvents = await eventServices.getMyEvents(userId);
-        res.status(200).json({"data": myEvents});
+        res.status(200).json({data: myEvents});
     }
     catch(error){
-        res.status(400).json({"message": error.message});
+        res.status(400).json({message: error.message});
     }
 }
 
