@@ -14,7 +14,7 @@ const registrationSchema = new mongoose.Schema({
     status: {
         type: String,
         enum: {
-            values: ["registered", "cancelled"],
+            values: ["registered", "unregistered"],
             message: "{VALUE} is not a valid status"
         },
         default: "registered"

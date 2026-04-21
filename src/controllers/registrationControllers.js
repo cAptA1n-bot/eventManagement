@@ -15,4 +15,20 @@ const register = async (req, res) => {
     }
 }
 
-export default {register};
+const unregister = async (req, res) => {
+    try{
+        const userId = req.user._id;
+        const eventId = req.params.eventid;
+        if(!eventId){
+            return res.status(400).json({message: "No event id found"});
+        }
+        await registrationServices.unregister(userId, eventId);
+        res.status(204).send();
+    }
+    catch(error){
+        res.status(400).json({message: error.message});
+    }
+    
+}
+
+export default {register, unregister};
