@@ -33,8 +33,7 @@ const unregister = async (userId, eventId) => {
     if(event.admin.toString() === userId.toString()){
         throw new Error("Invalid action");
     }
-    const registration = await Registration.find({userId, eventId});
-    console.log(registration);
+    const registration = await Registration.findOne({userId, eventId});
     
     if (!registration || registration.status === "unregistered") {
         throw new Error("User is not registered for this event");
