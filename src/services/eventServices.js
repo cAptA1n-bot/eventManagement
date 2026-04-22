@@ -37,4 +37,23 @@ const getMyEvents = async (userId) => {
     return myEvents;
 }
 
-export default {createEvent, getEvents, getMyEvents}
+const reviewEvent = async (eventId, status) => {
+    const event = await Event.findOne({_id: eventId });
+    if (!event) {
+        throw new Error("Event not found");
+    }
+    if (event.status !== 'pending') {
+        throw new Error("Event already reviewd");
+    }
+    if(status === 'accepted'){
+        event.status = 'active';
+    }
+    else if(status === 'rejected'){
+        event.status = status;
+    }
+   
+    await event.save();
+}
+
+
+export default {createEvent, getEvents, getMyEvents, reviewEvent}

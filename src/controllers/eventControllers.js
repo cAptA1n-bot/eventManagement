@@ -42,4 +42,21 @@ const getMyEvents = async (req, res) => {
     }
 }
 
-export default {createEvent, getEvents, getMyEvents};
+const reviewEvent = async (req, res) => {
+    try {
+        const eventId = req.params.eventid;
+        const status = req.body.status;
+        if (!['accepted', 'rejected'].includes(status)) {
+            return res.status(400).json({ message: "Invalid status" });
+        }
+
+        await eventServices.reviewEvent(eventId, status);
+
+        res.status(204).send();
+
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+};
+
+export default {createEvent, getEvents, getMyEvents, reviewEvent};
