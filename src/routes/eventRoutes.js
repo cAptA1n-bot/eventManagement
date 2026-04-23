@@ -8,6 +8,7 @@ const eventRouter = express.Router();
 eventRouter.post("/", authmiddleware, eventControllers.createEvent);
 eventRouter.get("/", authmiddleware, eventControllers.getEvents);
 eventRouter.get("/me", authmiddleware, eventControllers.getMyEvents);
-eventRouter.patch("/:eventid/review", authmiddleware, roleMiddleware, eventControllers.reviewEvent)
+eventRouter.patch("/:eventid/review", authmiddleware, roleMiddleware, eventControllers.reviewEvent);
+eventRouter.patch("/:eventid", authmiddleware, eventControllers.updateEvent);
 
 export default eventRouter;
