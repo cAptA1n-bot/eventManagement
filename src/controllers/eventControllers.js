@@ -84,4 +84,16 @@ const updateEvent = async (req, res) => {
     }
 }
 
-export default { createEvent, getEvents, getMyEvents, reviewEvent, updateEvent };
+const cancelEvent = async (req, res) => {
+    try{
+        const userId = req.user._id;
+        const eventId = req.params.eventid;
+        await eventServices.cancelEvent(userId, eventId);
+        res.status(204).send();
+    }
+    catch(error){
+        res.status(400).json({message: error.message});
+    }
+}
+
+export default { createEvent, getEvents, getMyEvents, reviewEvent, updateEvent, cancelEvent };

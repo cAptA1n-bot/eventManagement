@@ -10,5 +10,6 @@ eventRouter.get("/", authmiddleware, eventControllers.getEvents);
 eventRouter.get("/me", authmiddleware, eventControllers.getMyEvents);
 eventRouter.patch("/:eventid/review", authmiddleware, roleMiddleware, eventControllers.reviewEvent);
 eventRouter.patch("/:eventid", authmiddleware, eventControllers.updateEvent);
+eventRouter.patch("/:eventid/cancel", authmiddleware, eventControllers.cancelEvent);
 
 export default eventRouter;

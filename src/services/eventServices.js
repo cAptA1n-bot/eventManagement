@@ -73,4 +73,19 @@ const updateEvent = async (userId, eventId, updates) => {
     );
 }
 
-export default { createEvent, getEvents, getMyEvents, reviewEvent, updateEvent }
+const cancelEvent = async (userId, eventId) => {
+    const event = await Event.findOne({_id: eventId});
+    if(!event){
+        throw new Error("No such event found");
+    }
+    if(event.admin.toString() !== userId.toString()){
+        throw new Error("Unauthorized");
+    }
+    if(event.status !== 'pending' && event.status !== 'active'){
+        throw new Error("Can't perform this action");
+    }
+    event.status = 'cancelled';
+    event.save();
+}
+
+export default { createEvent, getEvents, getMyEvents, reviewEvent, updateEvent, cancelEvent }
