@@ -19,11 +19,18 @@ const getEvents = async (req, res) => {
     try {
         const userId = req.user._id;
         const filter = req.query.type;
+        const date = req.query.date;
+        const location = req.query.location;
         const allowedFilters = ['registered', 'unregistered'];
+        if (date && isNaN(new Date(date).getTime())) {
+            return res.status(400).json({
+                message: "Invalid date format. Use YYYY-MM-DD"
+            });
+        }
         if (filter && !allowedFilters.includes(filter)) {
             return res.status(400).json({ 'message': 'Invalid Status' });
         }
-        const events = await eventServices.getEvents(userId, filter);
+        const events = await eventServices.getEvents(userId, filter, date, location);
         res.status(200).json({ data: events });
     }
     catch (error) {
@@ -85,14 +92,14 @@ const updateEvent = async (req, res) => {
 }
 
 const cancelEvent = async (req, res) => {
-    try{
+    try {
         const userId = req.user._id;
         const eventId = req.params.eventid;
         await eventServices.cancelEvent(userId, eventId);
         res.status(204).send();
     }
-    catch(error){
-        res.status(400).json({message: error.message});
+    catch (error) {
+        res.status(400).json({ message: error.message });
     }
 }
 

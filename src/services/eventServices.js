@@ -6,20 +6,30 @@ const createEvent = async (eventName, description, time, venue, capacity, admin)
     return event;
 }
 
-const getEvents = async (userId, filter) => {
+const getEvents = async (userId, filter, date, location) => {
     const registrations = await Registration.find({ userId });
 
     const registeredEventsId = new Set(
         registrations.map(r => r.eventId.toString())
     )
 
-    let events = await Event.find().lean();
+    const query = {};
+    if (date) {
+        const start = new Date(`${date}T00:00:00.000+05:30`);
+        const end = new Date(`${date}T23:59:59.999+05:30`);
+        query.time = { $gte: start, $lte: end };
+    }
+    if (location) {
+        query.venue = { $regex: location, $options: 'i' };
+    }
+
+    let events = await Event.find(query).lean();
 
     events = events.filter(event => {
-        event.admin.toString() !== userId.toString()
+        return event.admin.toString() !== userId.toString()
     })
 
-    const result = events.map(event => ({
+    let result = events.map(event => ({
         ...event,
         isRegistered: registeredEventsId.has(event._id.toString())
     }))
@@ -60,7 +70,7 @@ const updateEvent = async (userId, eventId, updates) => {
     if (!event) {
         throw new Error("No such active event found");
     }
-    if(event.status !== 'pending' && event.status !== 'active'){
+    if (event.status !== 'pending' && event.status !== 'active') {
         throw new Error("Can't update this event anymore");
     }
     if (event.admin.toString() !== userId.toString()) {
@@ -74,14 +84,14 @@ const updateEvent = async (userId, eventId, updates) => {
 }
 
 const cancelEvent = async (userId, eventId) => {
-    const event = await Event.findOne({_id: eventId});
-    if(!event){
+    const event = await Event.findOne({ _id: eventId });
+    if (!event) {
         throw new Error("No such event found");
     }
-    if(event.admin.toString() !== userId.toString()){
+    if (event.admin.toString() !== userId.toString()) {
         throw new Error("Unauthorized");
     }
-    if(event.status !== 'pending' && event.status !== 'active'){
+    if (event.status !== 'pending' && event.status !== 'active') {
         throw new Error("Can't perform this action");
     }
     event.status = 'cancelled';

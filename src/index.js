@@ -6,6 +6,7 @@ import authRouter from "./routes/authRoutes.js";
 import cors from "cors";
 import eventRouter from "./routes/eventRoutes.js"
 import registrationRouter from "./routes/registrationRoutes.js";
+import userRouter from "./routes/userRoutes.js";
 dotenv.config();
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/users", authRouter);
+app.use("/me", userRouter);
 app.use("/events", eventRouter);
 app.use("/registrations", registrationRouter);
 
