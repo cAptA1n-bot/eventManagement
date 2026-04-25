@@ -52,3 +52,5 @@ This is a backend system for Event Management System. The flow of the applicatio
  - POST - /events/registrations/:eventid - register for an event
  - PATCH - /events/registrations/:eventid - cancel registration for an event
  - PATCH - /events/:eventid/review - api for super admin to review the events
+
+* Note: All the information provided in this document may not be 100% accurate as many things were changed during the development process according to the requirements and constraints of the project. This document is just a reference for the overall structure and flow of the application.
