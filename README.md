@@ -41,11 +41,14 @@ This is a backend system for Event Management System. The flow of the applicatio
 
 ## APIs
 
- - POST - /users/signup
- - POST - /users/login
- - GET - /users/me
- - POST - /events
- - GET - /events
- - POST - /evnets/:id/register
- - PATCH - /events/:id/register
- - 
+ - POST - /users/signup - create a new user account 
+ - POST - /users/login - login existing user 
+ - GET - /users/me - get the details of the logged in user
+ - POST - /events - create a new event 
+ - PATCH - /events/:eventid - update an event (only by the admin of that event)
+ - PATCH - /events/:eventid/cancel - cancel an event (only by the admin of that event)
+ - GET - /events - get all events with filters for applied/not applied, date and location
+ - GET - /events/me - get all events created by the logged in user
+ - POST - /events/registrations/:eventid - register for an event
+ - PATCH - /events/registrations/:eventid - cancel registration for an event
+ - PATCH - /events/:eventid/review - api for super admin to review the events
